@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview A Genkit flow for generating a concise summary of an article.
+ * @fileOverview A Genkit flow for generating a concise summary of an article in Arabic.
  *
  * - generateArticleSummary - A function that handles the article summarization process.
  * - GenerateArticleSummaryInput - The input type for the generateArticleSummary function.
@@ -16,7 +16,7 @@ const GenerateArticleSummaryInputSchema = z.object({
 export type GenerateArticleSummaryInput = z.infer<typeof GenerateArticleSummaryInputSchema>;
 
 const GenerateArticleSummaryOutputSchema = z.object({
-  summary: z.string().describe('A concise, 3-line summary of the article content.'),
+  summary: z.string().describe('A concise, 3-line summary in Arabic with English technical terms.'),
 });
 export type GenerateArticleSummaryOutput = z.infer<typeof GenerateArticleSummaryOutputSchema>;
 
@@ -30,9 +30,11 @@ const generateArticleSummaryPrompt = ai.definePrompt({
   name: 'generateArticleSummaryPrompt',
   input: {schema: GenerateArticleSummaryInputSchema},
   output: {schema: GenerateArticleSummaryOutputSchema},
-  prompt: `Summarize the following article content into exactly 3 concise lines.
+  prompt: `قم بتلخيص المحتوى التالي باللغة العربية الفصحى في 3 أسطر فقط. 
+يجب أن يكون الملخص ذكياً ومفيداً.
+ملاحظة هامة: حافظ على المصطلحات التقنية (Technical Terms) باللغة الإنجليزية كما هي (مثل React, AI, Cloud, Database) لسهولة الفهم.
 
-Article Content:
+المحتوى المراد تلخيصه:
 {{{articleContent}}}`,
 });
 
