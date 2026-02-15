@@ -56,6 +56,13 @@ export function ArticleCard({ article }: ArticleCardProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const formattedDate = new Date(article.pubDate).toLocaleDateString('ar-EG', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    numberingSystem: 'latn'
+  });
+
   return (
     <Card className="flex flex-col h-full bg-card hover:border-muted-foreground/30 transition-all duration-300 shadow-sm hover:shadow-md overflow-hidden group border-border">
       <CardHeader className="space-y-1">
@@ -64,7 +71,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
             {article.source}
           </span>
           <span className="text-[10px] text-muted-foreground">
-            {new Date(article.pubDate).toLocaleDateString('ar-EG')}
+            {formattedDate}
           </span>
         </div>
         <CardTitle className="text-lg font-headline leading-tight transition-colors">
