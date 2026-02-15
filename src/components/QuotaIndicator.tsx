@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/tooltip";
 
 export function QuotaIndicator() {
-  const { count, percentage, remaining, isLoaded, reset } = useAiQuota();
+  const { count, limit, percentage, remaining, isLoaded, reset } = useAiQuota();
 
   if (!isLoaded) return null;
 
@@ -26,7 +26,7 @@ export function QuotaIndicator() {
             <span>الحصة الذكية</span>
           </div>
           <span className={remaining === 0 ? "text-destructive font-bold" : ""}>
-            {remaining} متبقي
+            {count} من {limit}
           </span>
         </div>
         <Progress 

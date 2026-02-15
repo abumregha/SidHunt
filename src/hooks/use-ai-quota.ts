@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-const QUOTA_LIMIT = 10; 
+const QUOTA_LIMIT = 15; 
 const STORAGE_KEY = 'ai_request_count';
 const QUOTA_EVENT = 'quota-updated';
 
