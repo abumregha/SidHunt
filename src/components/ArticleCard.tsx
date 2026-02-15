@@ -112,19 +112,19 @@ export function ArticleCard({ article }: ArticleCardProps) {
         <div className="flex w-full gap-2">
           {!summary ? (
             <Button 
-              variant={isOverQuota ? "ghost" : "outline"}
-              className="flex-1 gap-2 border-border hover:bg-secondary"
+              variant={isOverQuota ? "secondary" : "outline"}
+              className={`flex-1 gap-2 border-border ${isOverQuota ? 'opacity-70 cursor-not-allowed' : 'hover:bg-secondary'}`}
               onClick={handleSummarize}
               disabled={isLoading}
             >
               {isOverQuota ? (
                 <>
                   <AlertCircle className="h-4 w-4 text-destructive" />
-                  <span className="text-destructive">انتهت الحصة</span>
+                  <span className="text-destructive font-bold">انتهت الحصة</span>
                 </>
               ) : (
                 <>
-                  <Sparkles className="h-4 w-4" />
+                  <Sparkles className="h-4 w-4 text-primary" />
                   لخّص بالذكاء
                 </>
               )}
