@@ -43,17 +43,17 @@ export function ArticleCard({ article }: ArticleCardProps) {
   };
 
   return (
-    <Card className="flex flex-col h-full bg-card hover:border-accent transition-all duration-300 shadow-xl overflow-hidden group">
+    <Card className="flex flex-col h-full bg-card hover:border-muted-foreground/30 transition-all duration-300 shadow-sm hover:shadow-md overflow-hidden group border-border">
       <CardHeader className="space-y-1">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-accent uppercase tracking-wider bg-accent/10 px-2 py-0.5 rounded">
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider bg-secondary px-2 py-0.5 rounded">
             {article.source}
           </span>
           <span className="text-[10px] text-muted-foreground">
             {new Date(article.pubDate).toLocaleDateString('ar-EG')}
           </span>
         </div>
-        <CardTitle className="text-lg font-headline leading-tight group-hover:text-accent transition-colors">
+        <CardTitle className="text-lg font-headline leading-tight transition-colors">
           {article.title}
         </CardTitle>
       </CardHeader>
@@ -68,14 +68,14 @@ export function ArticleCard({ article }: ArticleCardProps) {
 
           {isLoading && (
             <div className="flex flex-col items-center justify-center py-6 space-y-2">
-              <Loader2 className="h-6 w-6 animate-spin text-accent" />
+              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
               <p className="text-xs text-muted-foreground">جاري التلخيص بالذكاء الاصطناعي...</p>
             </div>
           )}
 
           {summary && (
-            <div className="bg-primary/20 p-4 rounded-lg border border-accent/20 animate-in fade-in slide-in-from-top-2">
-              <div className="flex items-center gap-2 mb-2 text-accent">
+            <div className="bg-secondary p-4 rounded-lg border border-border animate-in fade-in slide-in-from-top-2">
+              <div className="flex items-center gap-2 mb-2 text-foreground">
                 <Sparkles className="h-4 w-4" />
                 <span className="text-xs font-bold">ملخص ذكي:</span>
               </div>
@@ -87,12 +87,12 @@ export function ArticleCard({ article }: ArticleCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="flex gap-2 pt-2 border-t border-border/50 bg-secondary/30">
+      <CardFooter className="flex gap-2 pt-2 border-t border-border/50 bg-secondary/20">
         <div className="flex w-full gap-2">
           {!summary ? (
             <Button 
               variant="outline" 
-              className="flex-1 gap-2 border-accent/30 hover:bg-accent/10 hover:text-accent"
+              className="flex-1 gap-2 border-border hover:bg-secondary"
               onClick={handleSummarize}
               disabled={isLoading}
             >
@@ -102,7 +102,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
           ) : (
             <Button 
               variant="outline" 
-              className="flex-1 gap-2 border-accent/30 hover:bg-accent/10 hover:text-accent"
+              className="flex-1 gap-2 border-border hover:bg-secondary"
               onClick={handleCopy}
             >
               {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
