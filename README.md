@@ -1,5 +1,30 @@
-# Firebase Studio
+# IdeaDigest - صائد الأفكار الذكي 🚀
 
-This is a NextJS starter in Firebase Studio.
+تطبيق ذكي يقوم بجمع منشورات Reddit المميزة وتلخيصها بالذكاء الاصطناعي (Genkit + Gemini).
 
-To get started, take a look at src/app/page.tsx.
+## 🚀 كيفية النشر مجاناً (Deployment)
+
+يمكنك نشر هذا التطبيق مجاناً وبسهولة باستخدام منصة **Vercel** أو **Firebase**:
+
+### 1. النشر عبر Vercel (موصى به)
+1. قم برفع الكود إلى **GitHub**.
+2. اذهب إلى [Vercel.com](https://vercel.com) واربط حساب GitHub الخاص بك.
+3. اختر المستودع واضغط على **Import**.
+4. في قسم **Environment Variables**، أضف المفتاح التالي:
+   - `GOOGLE_GENAI_API_KEY`: ضع هنا مفتاح Gemini API الخاص بك (يمكنك الحصول عليه من Google AI Studio).
+5. اضغط **Deploy** ومبارك عليك الموقع!
+
+### 2. النشر عبر Firebase App Hosting
+المشروع مجهز مسبقاً بملف `apphosting.yaml`. يمكنك استخدامه للنشر مباشرة على بنية تحتية تابعة لجوجل.
+
+## ✨ المميزات
+- **تلخيص ذكي:** يستخدم Gemini 1.5 Flash لتقديم ملخصات دقيقة.
+- **PWA جاهز:** يمكن تثبيت التطبيق على الهاتف كأنه تطبيق APK أصلي.
+- **حصة مجانية:** نظام مدمج لتحديد عدد طلبات الـ AI لكل مستخدم.
+- **واجهة مريحة:** ألوان هادئة وتصميم يدعم اللغة العربية بشكل كامل.
+
+## 🛠 التكنولوجيا المستخدمة
+- **Next.js 15** (App Router)
+- **Genkit** (AI Orchestration)
+- **Tailwind CSS** + **ShadCN UI**
+- **RSS Feeds** (Reddit Integration)
