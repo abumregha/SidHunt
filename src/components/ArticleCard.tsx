@@ -1,12 +1,14 @@
+
 "use client";
 
 import { useState } from "react";
 import { Article } from "@/lib/types";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Copy, ExternalLink, Sparkles, Check, Loader2 } from "lucide-react";
+import { Copy, ExternalLink, Sparkles, Check, Loader2, AlertCircle } from "lucide-react";
 import { generateArticleSummary } from "@/ai/flows/generate-article-summary";
 import { useToast } from "@/hooks/use-toast";
+import { useAiQuota } from "@/hooks/use-ai-quota";
 
 interface ArticleCardProps {
   article: Article;
@@ -17,13 +19,25 @@ export function ArticleCard({ article }: ArticleCardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
+  const { isOverQuota, increment } = useAiQuota();
 
   const handleSummarize = async () => {
     if (summary) return;
+    
+    if (isOverQuota) {
+      toast({
+        title: "نفدت الحصة",
+        description: "لقد استهلكت جميع طلبات الذكاء الاصطناعي المجانية لهذا اليوم.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
       const result = await generateArticleSummary({ articleContent: article.description || article.title });
       setSummary(result.summary);
+      increment();
     } catch (error) {
       toast({
         title: "خطأ",
@@ -91,13 +105,22 @@ export function ArticleCard({ article }: ArticleCardProps) {
         <div className="flex w-full gap-2">
           {!summary ? (
             <Button 
-              variant="outline" 
+              variant={isOverQuota ? "ghost" : "outline"}
               className="flex-1 gap-2 border-border hover:bg-secondary"
               onClick={handleSummarize}
               disabled={isLoading}
             >
-              <Sparkles className="h-4 w-4" />
-              لخّص بالذكاء
+              {isOverQuota ? (
+                <>
+                  <AlertCircle className="h-4 w-4 text-destructive" />
+                  <span className="text-destructive">انتهت الحصة</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="h-4 w-4" />
+                  لخّص بالذكاء
+                </>
+              )}
             </Button>
           ) : (
             <Button 

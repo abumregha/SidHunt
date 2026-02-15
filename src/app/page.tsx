@@ -1,13 +1,15 @@
+
 import { FeedContainer } from "@/components/FeedContainer";
 import { Toaster } from "@/components/ui/toaster";
 import { BrainCircuit } from "lucide-react";
+import { QuotaIndicator } from "@/components/QuotaIndicator";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background selection:bg-primary selection:text-primary-foreground">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="bg-primary p-2 rounded-lg shadow-sm">
               <BrainCircuit className="h-6 w-6 text-primary-foreground" />
@@ -21,8 +23,12 @@ export default function Home() {
               </span>
             </div>
           </div>
-          <div className="hidden sm:flex items-center text-xs text-muted-foreground font-medium">
-            تغذية من Reddit • مدعوم بـ AI
+          
+          <div className="flex items-center gap-4">
+            <QuotaIndicator />
+            <div className="hidden lg:flex items-center text-xs text-muted-foreground font-medium border-r pr-4 mr-4">
+              تغذية من Reddit • مدعوم بـ AI
+            </div>
           </div>
         </div>
       </header>
