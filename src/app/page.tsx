@@ -2,6 +2,7 @@ import { FeedContainer } from "@/components/FeedContainer";
 import { Toaster } from "@/components/ui/toaster";
 import { Search } from "lucide-react";
 import { QuotaIndicator } from "@/components/QuotaIndicator";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
@@ -23,7 +24,9 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <ThemeToggle />
+            <div className="w-px h-6 bg-border/50 mx-1 hidden sm:block" />
             <QuotaIndicator />
           </div>
         </div>
@@ -41,7 +44,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-muted/50 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       </section>
 
       {/* Main Feed */}
@@ -50,7 +53,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/50 bg-secondary/50 py-8">
+      <footer className="border-t border-border/50 bg-secondary/30 py-8">
         <div className="container mx-auto px-4 text-center">
           <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} Side Hunt - صائد الفرص الجانبية.
