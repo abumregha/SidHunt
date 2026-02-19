@@ -8,29 +8,41 @@ const FEEDS = [
 
 export async function GET() {
   try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const results = await Promise.all(
       FEEDS.map(async (feed) => {
         const res = await fetch(feed.url, { next: { revalidate: 3600 } });
         const xmlText = await res.text();
         
-        // Basic XML parsing for RSS (using Regex to avoid extra dependencies)
         const items: any[] = [];
         const itemMatches = xmlText.matchAll(/<entry>([\s\S]*?)<\/entry>/g);
         
         for (const match of itemMatches) {
           const content = match[1];
+          const pubDateStr = content.match(/<updated>([\s\S]*?)<\/updated>/)?.[1] || '';
+          const pubDate = new Date(pubDateStr);
+          
+          // Filter: Only Today's posts
+          const postDate = new Date(pubDate);
+          postDate.setHours(0, 0, 0, 0);
+          
+          if (postDate.getTime() !== today.getTime()) {
+            continue;
+          }
+
           const title = content.match(/<title>([\s\S]*?)<\/title>/)?.[1] || '';
           const link = content.match(/<link href="([\s\S]*?)"/)?.[1] || '';
           const description = content.match(/<content type="html">([\s\S]*?)<\/content>/)?.[1] || '';
           const id = content.match(/<id>([\s\S]*?)<\/id>/)?.[1] || Math.random().toString();
-          const pubDate = content.match(/<updated>([\s\S]*?)<\/updated>/)?.[1] || '';
           
           items.push({
             id,
             title: decodeHtml(title),
             link,
             description: stripHtml(decodeHtml(description)).substring(0, 500),
-            pubDate,
+            pubDate: pubDateStr,
             source: feed.name,
           });
         }
@@ -38,9 +50,10 @@ export async function GET() {
       })
     );
 
-    const flatItems = results.flat().sort((a, b) => 
-      new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
-    );
+    // Sort by date and take only TOP 15 across all sources
+    const flatItems = results.flat()
+      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+      .slice(0, 15);
 
     return NextResponse.json({ items: flatItems });
   } catch (error) {

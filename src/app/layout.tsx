@@ -2,12 +2,12 @@ import type {Metadata, Viewport} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'IdeaDigest - صائد الأفكار',
+  title: 'Side Hunt - صائد الفرص الجانبية',
   description: 'ملخصات ذكية لأفضل أفكار ومواقع Reddit اليومية',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'IdeaDigest',
+    title: 'Side Hunt',
   },
   formatDetection: {
     telephone: false,

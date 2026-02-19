@@ -1,14 +1,14 @@
-
 "use client";
 
 import { useState } from "react";
 import { Article } from "@/lib/types";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Copy, ExternalLink, Sparkles, Check, Loader2, AlertCircle } from "lucide-react";
+import { Copy, ExternalLink, Sparkles, Check, Loader2, AlertCircle, Bookmark, BookmarkCheck } from "lucide-react";
 import { generateArticleSummary } from "@/ai/flows/generate-article-summary";
 import { useToast } from "@/hooks/use-toast";
 import { useAiQuota } from "@/hooks/use-ai-quota";
+import { useBookmarks } from "@/hooks/use-bookmarks";
 
 interface ArticleCardProps {
   article: Article;
@@ -20,6 +20,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
   const { isOverQuota, increment } = useAiQuota();
+  const { toggleBookmark, isBookmarked } = useBookmarks();
 
   const handleSummarize = async () => {
     if (summary) return;
@@ -63,6 +64,8 @@ export function ArticleCard({ article }: ArticleCardProps) {
     numberingSystem: 'latn'
   });
 
+  const bookmarked = isBookmarked(article.id);
+
   return (
     <Card className="flex flex-col h-full bg-card hover:border-muted-foreground/30 transition-all duration-300 shadow-sm hover:shadow-md overflow-hidden group border-border">
       <CardHeader className="space-y-1">
@@ -70,9 +73,19 @@ export function ArticleCard({ article }: ArticleCardProps) {
           <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider bg-secondary px-2 py-0.5 rounded">
             {article.source}
           </span>
-          <span className="text-[10px] text-muted-foreground">
-            {formattedDate}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-muted-foreground">
+              {formattedDate}
+            </span>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-6 w-6 text-muted-foreground hover:text-primary"
+              onClick={() => toggleBookmark(article)}
+            >
+              {bookmarked ? <BookmarkCheck className="h-4 w-4 text-primary fill-primary" /> : <Bookmark className="h-4 w-4" />}
+            </Button>
+          </div>
         </div>
         <CardTitle className="text-lg font-headline leading-tight transition-colors">
           {article.title}
@@ -120,12 +133,12 @@ export function ArticleCard({ article }: ArticleCardProps) {
               {isOverQuota ? (
                 <>
                   <AlertCircle className="h-4 w-4 text-destructive" />
-                  <span className="text-destructive font-bold">انتهت الحصة</span>
+                  <span className="text-destructive font-bold text-xs">انتهت الحصة</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="h-4 w-4 text-primary" />
-                  لخّص بالذكاء
+                  <span className="text-xs">لخص بالذكاء</span>
                 </>
               )}
             </Button>
@@ -136,7 +149,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
               onClick={handleCopy}
             >
               {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-              {copied ? "تم النسخ" : "نسخ الملخص"}
+              <span className="text-xs">{copied ? "تم النسخ" : "نسخ الملخص"}</span>
             </Button>
           )}
           
@@ -146,7 +159,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
             onClick={() => window.open(article.link, '_blank')}
           >
             <ExternalLink className="h-4 w-4" />
-            فتح الرابط
+            <span className="text-xs">فتح الرابط</span>
           </Button>
         </div>
       </CardFooter>

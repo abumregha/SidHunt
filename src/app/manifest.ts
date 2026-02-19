@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'IdeaDigest - صائد الأفكار',
-    short_name: 'IdeaDigest',
+    name: 'Side Hunt - صائد الفرص',
+    short_name: 'Side Hunt',
     description: 'ملخصات ذكية لأفضل أفكار ومواقع Reddit اليومية',
     start_url: '/',
     display: 'standalone',
