@@ -34,20 +34,8 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero section */}
-      <section className="relative overflow-hidden pt-12 pb-8">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h2 className="text-2xl sm:text-3xl font-headline font-bold mb-4 leading-tight">
-              صفحة شخصية تعرض اهم <span className="text-primary">45 منشوراً</span> يومياً من عدة مجتمعات مختارة بعناية من موقع <span className="text-muted-foreground">Reddit</span> لتجنب التصفح اللانهائي ومضيعة الوقت.
-            </h2>
-          </div>
-        </div>
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-      </section>
-
-      {/* Main Feed */}
-      <section className="container mx-auto px-4 pb-20">
+      {/* Main Content Area */}
+      <section className="container mx-auto px-4 pt-8 pb-20">
         <FeedContainer />
       </section>
 

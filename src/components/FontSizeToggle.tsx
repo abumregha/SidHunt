@@ -1,55 +1,60 @@
 "use client";
 
-import { Type } from "lucide-react";
+import { Type, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-const FONT_SIZES = [
-  { label: "صغير", value: "small" },
-  { label: "متوسط", value: "medium" },
-  { label: "كبير", value: "large" },
-  { label: "كبير جداً", value: "extra-large" },
-];
+const SIZES = ["small", "medium", "large", "extra-large"];
 
 export function FontSizeToggle() {
-  const [fontSize, setFontSize] = useState("medium");
+  const [sizeIndex, setSizeIndex] = useState(1); // Default to "medium"
 
   useEffect(() => {
     const saved = localStorage.getItem("font-size") || "medium";
-    setFontSize(saved);
-    document.documentElement.setAttribute("data-font-size", saved);
+    const index = SIZES.indexOf(saved);
+    const validIndex = index !== -1 ? index : 1;
+    setSizeIndex(validIndex);
+    document.documentElement.setAttribute("data-font-size", SIZES[validIndex]);
   }, []);
 
-  const changeSize = (size: string) => {
-    setFontSize(size);
-    document.documentElement.setAttribute("data-font-size", size);
-    localStorage.setItem("font-size", size);
+  const updateSize = (newIndex: number) => {
+    if (newIndex >= 0 && newIndex < SIZES.length) {
+      setSizeIndex(newIndex);
+      const sizeValue = SIZES[newIndex];
+      document.documentElement.setAttribute("data-font-size", sizeValue);
+      localStorage.setItem("font-size", sizeValue);
+    }
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-primary transition-colors">
+    <div className="flex items-center bg-secondary/50 rounded-lg p-0.5 border border-border/50">
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="h-8 w-8 text-muted-foreground hover:text-primary transition-colors"
+        onClick={() => updateSize(sizeIndex - 1)}
+        disabled={sizeIndex === 0}
+        title="تصغير الخط"
+      >
+        <div className="relative">
           <Type className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {FONT_SIZES.map((size) => (
-          <DropdownMenuItem 
-            key={size.value} 
-            onClick={() => changeSize(size.value)}
-            className={fontSize === size.value ? "bg-accent" : ""}
-          >
-            {size.label}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <Minus className="h-2 w-2 absolute -bottom-1 -right-1" />
+        </div>
+      </Button>
+      <div className="w-px h-4 bg-border/50" />
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="h-8 w-8 text-muted-foreground hover:text-primary transition-colors"
+        onClick={() => updateSize(sizeIndex + 1)}
+        disabled={sizeIndex === SIZES.length - 1}
+        title="تكبير الخط"
+      >
+        <div className="relative">
+          <Type className="h-5 w-5" />
+          <Plus className="h-2 w-2 absolute -bottom-1 -right-1" />
+        </div>
+      </Button>
+    </div>
   );
 }
