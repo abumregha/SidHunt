@@ -10,32 +10,32 @@ export default function Home() {
     <main className="min-h-screen bg-background selection:bg-primary selection:text-primary-foreground">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="bg-primary p-2 rounded-lg shadow-sm">
-              <Search className="h-6 w-6 text-primary-foreground" />
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="bg-primary p-1.5 sm:p-2 rounded-lg shadow-sm">
+              <Search className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-xl font-headline font-bold tracking-tight text-foreground leading-none">
+              <h1 className="text-lg sm:text-xl font-headline font-bold tracking-tight text-foreground leading-none">
                 Side Hunt
               </h1>
-              <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-[0.2em]">
+              <span className="text-[9px] text-muted-foreground font-medium uppercase tracking-[0.1em] hidden xs:block">
                 Opportunity Catcher
               </span>
             </div>
           </div>
           
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-4">
             <FontSizeToggle />
             <ThemeToggle />
-            <div className="w-px h-6 bg-border/50 mx-1 hidden sm:block" />
+            <div className="w-px h-6 bg-border/50 mx-0.5 hidden sm:block" />
             <QuotaIndicator />
           </div>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <section className="container mx-auto px-4 pt-8 pb-20">
+      <section className="container mx-auto px-4 pt-4 sm:pt-8 pb-20">
         <FeedContainer />
       </section>
 

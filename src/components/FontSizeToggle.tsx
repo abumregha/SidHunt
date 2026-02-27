@@ -31,28 +31,28 @@ export function FontSizeToggle() {
       <Button 
         variant="ghost" 
         size="icon" 
-        className="h-8 w-8 text-muted-foreground hover:text-primary transition-colors"
+        className="h-7 w-7 sm:h-8 sm:w-8 text-muted-foreground hover:text-primary transition-colors"
         onClick={() => updateSize(sizeIndex - 1)}
         disabled={sizeIndex === 0}
         title="تصغير الخط"
       >
         <div className="relative">
-          <Type className="h-4 w-4" />
-          <Minus className="h-2 w-2 absolute -bottom-1 -right-1" />
+          <Type className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+          <Minus className="h-1.5 w-1.5 absolute -bottom-0.5 -right-0.5" />
         </div>
       </Button>
-      <div className="w-px h-4 bg-border/50" />
+      <div className="w-px h-3 sm:h-4 bg-border/50" />
       <Button 
         variant="ghost" 
         size="icon" 
-        className="h-8 w-8 text-muted-foreground hover:text-primary transition-colors"
+        className="h-7 w-7 sm:h-8 sm:w-8 text-muted-foreground hover:text-primary transition-colors"
         onClick={() => updateSize(sizeIndex + 1)}
         disabled={sizeIndex === SIZES.length - 1}
         title="تكبير الخط"
       >
         <div className="relative">
-          <Type className="h-5 w-5" />
-          <Plus className="h-2 w-2 absolute -bottom-1 -right-1" />
+          <Type className="h-4 w-4 sm:h-5 sm:w-5" />
+          <Plus className="h-1.5 w-1.5 absolute -bottom-0.5 -right-0.5" />
         </div>
       </Button>
     </div>
