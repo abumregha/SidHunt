@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Search } from "lucide-react";
 import { QuotaIndicator } from "@/components/QuotaIndicator";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { FontSizeToggle } from "@/components/FontSizeToggle";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
           </div>
           
           <div className="flex items-center gap-2 sm:gap-4">
+            <FontSizeToggle />
             <ThemeToggle />
             <div className="w-px h-6 bg-border/50 mx-1 hidden sm:block" />
             <QuotaIndicator />
@@ -35,13 +37,10 @@ export default function Home() {
       {/* Hero section */}
       <section className="relative overflow-hidden pt-12 pb-8">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl sm:text-4xl font-headline font-bold mb-4 leading-tight">
-              اقتنص <span className="text-muted-foreground">أفضل الفرص</span> اليومية.
+          <div className="max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl font-headline font-bold mb-4 leading-tight">
+              صفحة شخصية تعرض اهم <span className="text-primary">45 منشوراً</span> يومياً من عدة مجتمعات مختارة بعناية من موقع <span className="text-muted-foreground">Reddit</span> لتجنب التصفح اللانهائي ومضيعة الوقت.
             </h2>
-            <p className="text-muted-foreground text-sm sm:text-base mb-2">
-              نعرض لك توب 15 منشوراً من اليوم فقط، ملخصة بالذكاء الاصطناعي لتقتنص الفكرة في ثوانٍ.
-            </p>
           </div>
         </div>
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />

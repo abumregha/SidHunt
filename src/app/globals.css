@@ -47,6 +47,19 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
+
+  [data-font-size="small"] {
+    font-size: 14px;
+  }
+  [data-font-size="medium"] {
+    font-size: 16px;
+  }
+  [data-font-size="large"] {
+    font-size: 18px;
+  }
+  [data-font-size="extra-large"] {
+    font-size: 20px;
+  }
 }
 
 @layer base {

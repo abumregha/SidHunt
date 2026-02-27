@@ -5,6 +5,7 @@ export interface Article {
   description: string;
   pubDate: string;
   source: string;
+  subreddit?: string;
 }
 
 export interface RSSFeedResponse {

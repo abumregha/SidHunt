@@ -37,6 +37,10 @@ export async function GET() {
           const description = content.match(/<content type="html">([\s\S]*?)<\/content>/)?.[1] || '';
           const id = content.match(/<id>([\s\S]*?)<\/id>/)?.[1] || Math.random().toString();
           
+          // Extract Subreddit name from category or link
+          const subredditMatch = content.match(/<category term="([^"]+)"/);
+          const subreddit = subredditMatch ? `r/${subredditMatch[1]}` : 'reddit';
+          
           items.push({
             id,
             title: decodeHtml(title),
@@ -44,16 +48,16 @@ export async function GET() {
             description: stripHtml(decodeHtml(description)).substring(0, 500),
             pubDate: pubDateStr,
             source: feed.name,
+            subreddit,
           });
         }
-        return items;
+        // Return top 15 for THIS feed
+        return items.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()).slice(0, 15);
       })
     );
 
-    // Sort by date and take only TOP 15 across all sources
-    const flatItems = results.flat()
-      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
-      .slice(0, 15);
+    // Flat items now contains 15 per feed = 45 total
+    const flatItems = results.flat();
 
     return NextResponse.json({ items: flatItems });
   } catch (error) {

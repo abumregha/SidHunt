@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Article } from "@/lib/types";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Copy, ExternalLink, Sparkles, Check, Loader2, AlertCircle, Bookmark, BookmarkCheck } from "lucide-react";
+import { Copy, ExternalLink, Sparkles, Check, Loader2, AlertCircle, Bookmark, BookmarkCheck, MessageSquare } from "lucide-react";
 import { generateArticleSummary } from "@/ai/flows/generate-article-summary";
 import { useToast } from "@/hooks/use-toast";
 import { useAiQuota } from "@/hooks/use-ai-quota";
@@ -70,9 +70,16 @@ export function ArticleCard({ article }: ArticleCardProps) {
     <Card className="flex flex-col h-full bg-card hover:border-muted-foreground/30 transition-all duration-300 shadow-sm hover:shadow-md overflow-hidden group border-border">
       <CardHeader className="space-y-1">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider bg-secondary px-2 py-0.5 rounded">
-            {article.source}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-primary uppercase tracking-wider bg-primary/10 px-2 py-0.5 rounded">
+              {article.source}
+            </span>
+            {article.subreddit && (
+              <span className="text-[10px] font-medium text-muted-foreground bg-secondary px-2 py-0.5 rounded">
+                {article.subreddit}
+              </span>
+            )}
+          </div>
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-muted-foreground">
               {formattedDate}
@@ -95,7 +102,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
       <CardContent className="flex-grow">
         <div className="space-y-4">
           {!summary && !isLoading && (
-            <p className="text-sm text-muted-foreground line-clamp-3">
+            <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
               {article.description || "لا يوجد وصف متاح لهذا المنشور."}
             </p>
           )}
@@ -108,9 +115,9 @@ export function ArticleCard({ article }: ArticleCardProps) {
           )}
 
           {summary && (
-            <div className="bg-secondary p-4 rounded-lg border border-border animate-in fade-in slide-in-from-top-2">
+            <div className="bg-secondary/50 p-4 rounded-lg border border-border/50 animate-in fade-in slide-in-from-top-2">
               <div className="flex items-center gap-2 mb-2 text-foreground">
-                <Sparkles className="h-4 w-4" />
+                <Sparkles className="h-4 w-4 text-primary" />
                 <span className="text-xs font-bold">ملخص ذكي:</span>
               </div>
               <p className="text-sm leading-relaxed whitespace-pre-line text-foreground/90 font-medium">
@@ -121,7 +128,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="flex gap-2 pt-2 border-t border-border/50 bg-secondary/20">
+      <CardFooter className="flex flex-col gap-2 pt-2 border-t border-border/50 bg-secondary/10">
         <div className="flex w-full gap-2">
           {!summary ? (
             <Button 
@@ -158,8 +165,8 @@ export function ArticleCard({ article }: ArticleCardProps) {
             className="flex-1 gap-2"
             onClick={() => window.open(article.link, '_blank')}
           >
-            <ExternalLink className="h-4 w-4" />
-            <span className="text-xs">فتح الرابط</span>
+            <MessageSquare className="h-4 w-4" />
+            <span className="text-xs">التعليقات</span>
           </Button>
         </div>
       </CardFooter>
